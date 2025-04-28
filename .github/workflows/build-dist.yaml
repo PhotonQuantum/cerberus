@@ -51,10 +51,10 @@ jobs:
           else
             # If it doesn't exist, create a new one
             git checkout --orphan dist
-            git rm -rf .
           fi
           
           # Copy content from current ref
+          git rm -rf .
           git checkout $COMMIT_SHA -- .
 
           # Remove the original .gitignore and create a minimal one without excluding dist files
