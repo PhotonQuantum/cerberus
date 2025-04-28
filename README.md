@@ -12,11 +12,27 @@ For now, the project is still mostly a re-implementation of Anubis, but it's act
 
 ## Usage
 
+### Official Pre-built Binaries
+
+> Sometimes the official binaries are not up to date. In that case please build from source.
+
 1. Install Caddy with the plugin:
    ```bash
    caddy add-package github.com/sjtug/cerberus
    ```
 2. Add the handler directive to your Caddyfile. Refer to the [Caddyfile](Caddyfile) for an example configuration.
+
+### Build from Source 
+
+Please build against the **dist** branch or a release tag:
+
+```bash
+# Build with a specific version
+xcaddy build --with github.com/sjtug/cerberus@v1.0.0
+
+# Or build with the latest dist branch
+xcaddy build --with github.com/sjtug/cerberus@dist
+```
 
 ## Comparison with Anubis
 
@@ -58,3 +74,18 @@ Please run tests and lints before submitting a PR:
 $ direnv test # or go test
 $ golangci-lint run
 ```
+
+## Build Pipeline
+
+This repository uses a two-branch strategy:
+
+- **master branch**: Contains source code only (no generated artifacts)
+- **dist branch**: Contains both source code and all generated artifacts
+
+### Release Process
+
+To create a release:
+
+1. Update the `Version` constant in `core/const.go`.
+2. Go to "Actions" → "Build and Update Dist Branch" → "Run workflow".
+3. Enter the version tag (e.g., "v1.0.0") and run the workflow.

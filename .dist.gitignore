@@ -39,8 +39,3 @@ go.work.sum
 caddy
 
 .parcel-cache
-
-# Generated files (excluded from master branch, but included in dist branch)
-web/dist/
-web/index_templ.go
-*.wasm
