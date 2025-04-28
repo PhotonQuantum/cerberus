@@ -12,11 +12,27 @@ For now, the project is still mostly a re-implementation of Anubis, but it's act
 
 ## Usage
 
+### Official Pre-built Binaries
+
+> Sometimes the official binaries are not up to date. In that case please build from source.
+
 1. Install Caddy with the plugin:
    ```bash
    caddy add-package github.com/sjtug/cerberus
    ```
 2. Add the handler directive to your Caddyfile. Refer to the [Caddyfile](Caddyfile) for an example configuration.
+
+### Build from Source 
+
+Please build against the **dist** branch or a release tag:
+
+```bash
+# Build with a specific version
+xcaddy build --with github.com/sjtug/cerberus@v1.0.0
+
+# Or build with the latest dist branch
+xcaddy build --with github.com/sjtug/cerberus@dist
+```
 
 ## Comparison with Anubis
 
@@ -61,18 +77,15 @@ $ golangci-lint run
 
 ## Build Pipeline
 
-This repository uses a two-branch strategy for managing generated files:
+This repository uses a two-branch strategy:
 
-- **master branch**: Contains only the source code and no generated artifacts. This keeps the repository clean and makes code reviews easier.
-- **dist branch**: Contains both the source code and all generated artifacts. This branch is automatically updated by GitHub Actions whenever a push is made to the master branch.
+- **master branch**: Contains source code only (no generated artifacts)
+- **dist branch**: Contains both source code and all generated artifacts
 
-When tagging for releases, apply tags to commits on the **dist branch** since these contain all the necessary artifacts for xcaddy to build from. Tags should never be applied to the master branch for releases.
+### Release Process
 
-For local development, you should work with the master branch. Generated files are included in the `.gitignore` and won't be committed.
+To create a release:
 
-To try out the final build locally:
-
-```bash
-$ devenv tasks run dist:build
-$ devenv shell xcaddy build
-```
+1. Update the `Version` constant in `core/const.go`.
+2. Go to "Actions" → "Build and Update Dist Branch" → "Run workflow".
+3. Enter the version tag (e.g., "v1.0.0") and run the workflow.
