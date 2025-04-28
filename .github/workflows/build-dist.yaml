@@ -54,7 +54,7 @@ jobs:
           fi
           
           # Copy content from current ref
-          git rm -rf .
+          git rm -rf --cached .
           git checkout $COMMIT_SHA -- .
 
           # Remove the original .gitignore and create a minimal one without excluding dist files
